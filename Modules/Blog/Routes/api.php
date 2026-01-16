@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/blog', function (Request $request) {
 
 Route::middleware('api')->prefix('user')->group(function () {
     Route::post('/user-register', 'UserController@UserRegister');
+    Route::post('/login', 'UserController@login');
 });
 
 // Route::prefix('blog')->group(function () {
@@ -30,6 +31,6 @@ Route::middleware('api')->prefix('blog')->group(function () {
     Route::get('/', 'BlogController@index');
     Route::post('/', 'BlogController@store');
     Route::get('/{id}', 'BlogController@show');
-    // Route::put('/{id}', 'BlogController@update');
-    // Route::delete('/{id}', 'BlogController@destroy');
+    Route::put('/{id}', 'BlogController@update');
+    Route::delete('/{id}', 'BlogController@destroy');
 });

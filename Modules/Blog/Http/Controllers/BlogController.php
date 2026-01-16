@@ -9,10 +9,6 @@ use Modules\Blog\Entities\Post;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         try {
@@ -30,7 +26,7 @@ class BlogController extends Controller
             ]);
         }
     }
-    
+
     public function store(Request $request)
     {
         try {
@@ -56,7 +52,7 @@ class BlogController extends Controller
     public function show($id)
     {
         try {
-            $blog = Post::findOrFail($id);
+            $blog = Post::where('id', $id)->where('delete_flag', false)->first();
             return response()->json([
                     'success' => true, 
                     'data' => $blog
@@ -70,34 +66,59 @@ class BlogController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('blog::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $blog = Post::find($id);
+            if (!$blog) {
+                return response()->json([
+                        'success' => false, 
+                        'message' => 'Blog not found.',
+                        'data' => []
+                ], 404);
+            }
+            $blog->title = $request->title;
+            $blog->slug = $request->slug;
+            $blog->content = $request->content;
+            $blog->save();
+            return response()->json([
+                    'success' => true, 
+                    'message' => 'Blog updated successfully.',
+                    'data' => $blog
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                    'success' => false, 
+                    'message' => $th->getMessage(),
+                    'data' => []
+            ]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
-        //
+        try {
+            $blog = Post::find($id);
+            if (!$blog) {
+                return response()->json([
+                        'success' => false, 
+                        'message' => 'Blog not found.',
+                        'data' => []
+                ], 404);
+            }
+            $blog->delete_flag = true;
+            $blog->save();
+            return response()->json([
+                    'success' => true, 
+                    'message' => 'Blog deleted successfully.',
+                    'data' => []
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                    'success' => false, 
+                    'message' => $th->getMessage(),
+                    'data' => []
+            ]);
+        }
     }
 }
