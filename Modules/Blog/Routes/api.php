@@ -27,7 +27,7 @@ Route::middleware('api')->prefix('user')->group(function () {
 //     Route::post('/store', 'BlogController@store')   ;
 // });
 
-Route::middleware('api')->prefix('blog')->group(function () {
+Route::group(['middleware' => ['auth:api'], 'prefix' => 'blog'], function () {
     Route::get('/', 'BlogController@index');
     Route::post('/', 'BlogController@store');
     Route::get('/{id}', 'BlogController@show');
