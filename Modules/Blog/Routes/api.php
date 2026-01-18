@@ -42,3 +42,5 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'comment'], function () 
     Route::put('/{id}', 'CommentController@update');
     Route::delete('/{id}', 'CommentController@destroy');
 });
+
+Route::resource('reply', 'ReplyController')->middleware('auth:api');
