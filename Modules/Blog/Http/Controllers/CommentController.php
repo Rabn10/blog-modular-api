@@ -61,6 +61,24 @@ class CommentController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            $comment = Comment::where('id', $id)->where('delete_flag', false)->first();
+            return response()->json([
+                    'success' => true, 
+                    'data' => $comment
+            ]);
+        }
+        catch (\Throwable $th) {
+            return response()->json([
+                    'success' => false, 
+                    'message' => $th->getMessage(),
+                    'data' => []
+            ]);
+        }
+    }
+
     public function destroy($id)
     {
         try {
