@@ -34,3 +34,11 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'blog'], function () {
     Route::put('/{id}', 'BlogController@update');
     Route::delete('/{id}', 'BlogController@destroy');
 });
+
+Route::group(['middleware' => ['auth:api'], 'prefix' => 'comment'], function () {
+    Route::get('/', 'CommentController@index');
+    Route::post('/', 'CommentController@store');
+    Route::get('/{id}', 'CommentController@show');
+    Route::put('/{id}', 'CommentController@update');
+    Route::delete('/{id}', 'CommentController@destroy');
+});
