@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Comment;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {

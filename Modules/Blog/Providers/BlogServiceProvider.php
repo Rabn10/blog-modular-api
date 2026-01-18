@@ -29,6 +29,10 @@ class BlogServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->loadRoutesFrom(__DIR__.'/../Routes/api.php');
+        app('router')->aliasMiddleware(
+            'role',
+            \Modules\Blog\App\Http\Middleware\RoleMiddleware::class
+        );
     }
 
     /**

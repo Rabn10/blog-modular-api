@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Post;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -34,6 +35,7 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->slug = $request->slug;
             $blog->content = $request->content;
+            $blog->user_id = Auth::user()->id;
             $blog->save();
             return response()->json([
                     'success' => true, 
