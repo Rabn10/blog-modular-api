@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "121808489a3cfb2e4bab128873a89656",
+    "content-hash": "2f67cd3f8e683b86a4d83449c0edcc0d",
     "packages": [
         {
             "name": "brick/math",
@@ -3064,16 +3064,16 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "v10.0.0",
+            "version": "10.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "35e514f13cb8ae8dce093e9794785fea27319d81"
+                "reference": "a6f2c8b53ae7945ef41d296735e963cee885ebde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/35e514f13cb8ae8dce093e9794785fea27319d81",
-                "reference": "35e514f13cb8ae8dce093e9794785fea27319d81",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/a6f2c8b53ae7945ef41d296735e963cee885ebde",
+                "reference": "a6f2c8b53ae7945ef41d296735e963cee885ebde",
                 "shasum": ""
             },
             "require": {
@@ -3082,7 +3082,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.6",
-                "laravel/framework": "^10.0",
+                "laravel/framework": "^10.41",
                 "mockery/mockery": "^1.5",
                 "orchestra/testbench": "^8.0",
                 "phpstan/phpstan": "^1.4",
@@ -3133,15 +3133,19 @@
             ],
             "support": {
                 "issues": "https://github.com/nWidart/laravel-modules/issues",
-                "source": "https://github.com/nWidart/laravel-modules/tree/v10.0.0"
+                "source": "https://github.com/nWidart/laravel-modules/tree/10.0.6"
             },
             "funding": [
+                {
+                    "url": "https://github.com/dcblogdev",
+                    "type": "github"
+                },
                 {
                     "url": "https://github.com/nwidart",
                     "type": "github"
                 }
             ],
-            "time": "2023-02-16T11:08:15+00:00"
+            "time": "2024-01-28T10:04:15+00:00"
         },
         {
             "name": "nyholm/psr7",
