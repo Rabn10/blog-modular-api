@@ -44,3 +44,4 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'comment'], function () 
 });
 
 Route::resource('reply', 'ReplyController')->middleware('auth:api');
+Route::resource('category', 'CategoryController')->middleware(['auth:api', 'role:admin']);
