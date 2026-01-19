@@ -13,7 +13,7 @@ class BlogController extends Controller
     public function index()
     {
         try {
-            $blogs = Post::where('delete_flag', false)->get();
+            $blogs = Post::where('delete_flag', false)->with('category')->get();
             return response()->json([
                     'success' => true, 
                     'message' => 'Blogs retrieved successfully.',
@@ -36,6 +36,7 @@ class BlogController extends Controller
             $blog->slug = $request->slug;
             $blog->content = $request->content;
             $blog->user_id = Auth::user()->id;
+            $blog->category_id = $request->category_id;
             $blog->save();
             return response()->json([
                     'success' => true, 
@@ -54,7 +55,7 @@ class BlogController extends Controller
     public function show($id)
     {
         try {
-            $blog = Post::where('id', $id)->where('delete_flag', false)->first();
+            $blog = Post::where('id', $id)->where('delete_flag', false)->with('category')->first();
             return response()->json([
                     'success' => true, 
                     'data' => $blog
@@ -82,6 +83,7 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->slug = $request->slug;
             $blog->content = $request->content;
+            $blog->category_id = $request->category_id;
             $blog->save();
             return response()->json([
                     'success' => true, 
