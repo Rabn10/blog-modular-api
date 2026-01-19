@@ -15,4 +15,9 @@ class Post extends Model
     {
         return \Modules\Blog\Database\factories\PostFactory::new();
     }
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class)->select('id', 'name');
+    }
 }
