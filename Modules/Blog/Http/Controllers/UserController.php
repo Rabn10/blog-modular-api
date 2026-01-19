@@ -9,12 +9,28 @@ use Modules\Blog\Entities\user;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        try {
+            $user = User::where('delete_flag', false)->get();
+            return response()->json([
+                'success' => true, 
+                'message' => 'Users retrieved successfully.',
+                'data' => $user
+            ], 200);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function UserRegister(Request $request)
     {
        try {
            $user = user::create([
                'name' => $request->name,
                'email' => $request->email,
+               'role' => $request->role,
                'password' => bcrypt($request->password),
            ]);
 
