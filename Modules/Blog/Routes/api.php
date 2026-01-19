@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/blog', function (Request $request) {
 Route::middleware('api')->prefix('user')->group(function () {
     Route::post('/user-register', 'UserController@UserRegister');
     Route::post('/login', 'UserController@login');
+    Route::get('/', 'UserController@index')->middleware(['auth:api', 'role:admin']);
 });
 
 // Route::prefix('blog')->group(function () {
