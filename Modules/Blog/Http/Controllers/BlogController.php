@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Post;
 use Illuminate\Support\Facades\Auth;
+use Modules\Blog\Http\Requests\BlogRequest;
 
 class BlogController extends Controller
 {
@@ -28,7 +29,7 @@ class BlogController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
         try {
             $blog  = new Post();
@@ -69,7 +70,7 @@ class BlogController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(BlogRequest $request, $id)
     {
         try {
             $blog = Post::find($id);
@@ -118,6 +119,34 @@ class BlogController extends Controller
                     'data' => []
             ]);
         } catch (\Throwable $th) {
+            return response()->json([
+                    'success' => false, 
+                    'message' => $th->getMessage(),
+                    'data' => []
+            ]);
+        }
+    }
+
+    public function statusupdate(Request $request, $id)
+    {
+        try {
+            $blog = Post::where('id', $id)->where('delete_flag', false)->first();
+            if (!$blog) {
+                return response()->json([
+                        'success' => false, 
+                        'message' => 'Blog not found.',
+                        'data' => []
+                ], 404);
+            }
+            $blog->is_active = $request->is_active;
+            $blog->save();
+            return response()->json([
+                    'success' => true, 
+                    'message' => 'Blog status updated successfully.',
+                    'data' => $blog
+            ]);
+        }
+        catch (\Throwable $th) {
             return response()->json([
                     'success' => false, 
                     'message' => $th->getMessage(),
