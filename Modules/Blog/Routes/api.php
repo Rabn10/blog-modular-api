@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'blog'], function () {
     Route::get('/{id}', 'BlogController@show');
     Route::put('/{id}', 'BlogController@update');
     Route::delete('/{id}', 'BlogController@destroy');
+    Route::post('/like/{id}', 'BlogController@PostLike');
     Route::put('/statusupdate/{id}', 'BlogController@statusupdate')->middleware(['role:admin']);
 });
 

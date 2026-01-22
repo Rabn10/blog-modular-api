@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Post;
+use Modules\Blog\Entities\PostLike;
 use Illuminate\Support\Facades\Auth;
 use Modules\Blog\Http\Requests\BlogRequest;
 
@@ -144,6 +145,44 @@ class BlogController extends Controller
                     'success' => true, 
                     'message' => 'Blog status updated successfully.',
                     'data' => $blog
+            ]);
+        }
+        catch (\Throwable $th) {
+            return response()->json([
+                    'success' => false, 
+                    'message' => $th->getMessage(),
+                    'data' => []
+            ]);
+        }
+    }
+
+    public function PostLike(Request $request, $id)
+    {
+        try {
+            $blog = Post::where('id', $id)->where('delete_flag', false)->first();
+            $postLike = PostLike::where('post_id', $blog->id)->where('user_id', Auth::user()->id)->first();
+            if($postLike) {
+                return response()->json([
+                        'success' => false, 
+                        'message' => 'Blog already liked.',
+                        'data' => []
+                ], 404);
+            }
+            if (!$blog) {
+                return response()->json([
+                        'success' => false, 
+                        'message' => 'Blog not found.',
+                        'data' => []
+                ], 404);
+            }
+            $postLike = new PostLike();
+            $postLike->post_id = $blog->id;
+            $postLike->user_id = Auth::user()->id;
+            $postLike->save();
+            return response()->json([
+                    'success' => true, 
+                    'message' => 'Blog liked successfully.',
+                    'data' => $postLike
             ]);
         }
         catch (\Throwable $th) {
